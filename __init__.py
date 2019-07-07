@@ -1,7 +1,6 @@
 # TODO: Add an appropriate license to your skill before publishing.  See
 # the LICENSE file for more information.
 
-import time
 from pixel_ring import pixel_ring
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
@@ -14,8 +13,6 @@ class PixelRingSkill(MycroftSkill):
         super(PixelRingSkill, self).__init__(name="PixelRingSkill")
 
     def initialize(self):
-        #LOG.debug("initialising")
-
         pixel_ring.set_brightness(10)
 
         self.add_event('recognizer_loop:record_begin',
@@ -33,25 +30,18 @@ class PixelRingSkill(MycroftSkill):
         pixel_ring.set_vad_led(0)
 
     def shutdown(self):
-        #LOG.debug("shutdown")
         pixel_ring.off()
-        self.en.write(1)
 
     def handle_listener_wakeup(self, message):
-        #LOG.debug("listen")
         pixel_ring.listen()
-        
 
     def handle_listener_think(self, message):
-        #LOG.debug("think")
         pixel_ring.think()
 
     def handle_listener_speak(self, message):
-        #LOG.debug("speak")
         pixel_ring.speak()
 
     def handle_listener_off(self, message):
-        #LOG.debug("off")
         pixel_ring.off()
     
     @intent_handler(IntentBuilder("").require("EnablePixelRing"))
