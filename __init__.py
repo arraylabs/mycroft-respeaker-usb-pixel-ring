@@ -20,8 +20,6 @@ class PixelRingSkill(MycroftSkill):
 
     def initialize(self):
         LOG.debug("initialising")
-        
-        pixel_ring = find()
 
         pixel_ring.set_brightness(10)
 
