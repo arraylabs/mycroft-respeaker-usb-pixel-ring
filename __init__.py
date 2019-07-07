@@ -22,7 +22,6 @@ class PixelRingSkill(MycroftSkill):
         LOG.debug("initialising")
 
         pixel_ring.set_brightness(10)
-        pixel_ring.wakeup()
 
         self.add_event('recognizer_loop:record_begin',
                        self.handle_listener_wakeup)
@@ -43,8 +42,8 @@ class PixelRingSkill(MycroftSkill):
         self.en.write(1)
 
     def handle_listener_wakeup(self, message):
-        LOG.debug("wakeup")
-        pixel_ring.wakeup()
+        LOG.debug("listen")
+        pixel_ring.listen()
 
     def handle_listener_think(self, message):
         LOG.debug("think")
