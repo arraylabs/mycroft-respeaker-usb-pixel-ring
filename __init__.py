@@ -28,14 +28,14 @@ class PixelRingSkill(MycroftSkill):
     #   'Hello world'
     #   'Howdy you great big world'
     #   'Greetings planet earth'
-    @intent_handler(IntentBuilder("").require("Enable").require("Pixel"))
+    @intent_handler(IntentBuilder("").require("EnablePixelRing"))
     def handle_enable_pixel_ring_intent(self, message):
         # In this case, respond by simply speaking a canned response.
         # Mycroft will randomly speak one of the lines from the file
         #    dialogs/en-us/hello.world.dialog
         self.speak_dialog("EnablePixelRing")
 
-    @intent_handler(IntentBuilder("").require("Disable").require("Pixel"))
+    @intent_handler(IntentBuilder("").require("DisablePixelRing"))
     def handle_disable_pixel_ring_intent(self, message):
         self.speak_dialog("DisablePixelRing")
         # if message.data["Dir"] == "up":
