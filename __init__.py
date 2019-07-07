@@ -29,7 +29,30 @@ class PixelRingSkill(MycroftSkill):
         super(PixelRingSkill, self).__init__(name="PixelRingSkill")
 
     def initialize(self):
-        pixel_ring.set_brightness(10)
+        self.enable()
+        
+    def enable(self):
+        self.add_event('recognizer_loop:record_begin',
+                       self.handle_listener_wakeup)
+        self.add_event('recognizer_loop:record_end', self.handle_listener_off)
+        self.add_event('recognizer_loop:audio_output_start',
+                       self.handle_listener_speak)
+        self.add_event('recognizer_loop:audio_output_end',
+                       self.handle_listener_off)
+        self.add_event('mycroft.skill.handler.start',
+                       self.handle_listener_think)
+        self.add_event('mycroft.skill.handler.complete',
+                       self.handle_listener_off)
+        
+    def disable(self):
+        self.remove_event('recognizer_loop:record_begin')
+        self.remove_event('recognizer_loop:record_end')
+        self.remove_event('recognizer_loop:audio_output_start')
+        self.remove_event('recognizer_loop:audio_output_end')
+        self.remove_event('mycroft.skill.handler.start')
+        self.remove_event('mycroft.skill.handler.complete')
+        self.speak_dialog("DisablePixelRing")
+        ## set back to normal function
         pixel_ring.trace()
         pixel_ring.set_vad_led(2)
 
@@ -52,32 +75,13 @@ class PixelRingSkill(MycroftSkill):
     
     @intent_handler(IntentBuilder("").require("EnablePixelRing"))
     def handle_enable_pixel_ring_intent(self, message):
-        self.add_event('recognizer_loop:record_begin',
-                       self.handle_listener_wakeup)
-        self.add_event('recognizer_loop:record_end', self.handle_listener_off)
-        self.add_event('recognizer_loop:audio_output_start',
-                       self.handle_listener_speak)
-        self.add_event('recognizer_loop:audio_output_end',
-                       self.handle_listener_off)
-        self.add_event('mycroft.skill.handler.start',
-                       self.handle_listener_think)
-        self.add_event('mycroft.skill.handler.complete',
-                       self.handle_listener_off)
+        self.enable()
         self.speak_dialog("EnablePixelRing")
 
     @intent_handler(IntentBuilder("").require("DisablePixelRing"))
     def handle_disable_pixel_ring_intent(self, message):
-        self.remove_event('recognizer_loop:record_begin')
-        self.remove_event('recognizer_loop:record_end')
-        self.remove_event('recognizer_loop:audio_output_start')
-        self.remove_event('recognizer_loop:audio_output_end')
-        self.remove_event('mycroft.skill.handler.start')
-        self.remove_event('mycroft.skill.handler.complete')
+        self.disable()
         self.speak_dialog("DisablePixelRing")
-        ## set back to normal function
-        pixel_ring.trace()
-        pixel_ring.set_vad_led(2)
-        
 
 def create_skill():
     return PixelRingSkill()
