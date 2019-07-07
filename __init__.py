@@ -51,7 +51,6 @@ class PixelRingSkill(MycroftSkill):
         self.remove_event('recognizer_loop:audio_output_end')
         self.remove_event('mycroft.skill.handler.start')
         self.remove_event('mycroft.skill.handler.complete')
-        self.speak_dialog("DisablePixelRing")
         ## set back to normal function
         pixel_ring.trace()
         pixel_ring.set_vad_led(2)
