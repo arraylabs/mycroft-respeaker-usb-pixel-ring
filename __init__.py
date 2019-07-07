@@ -21,7 +21,7 @@ class PixelRingSkill(MycroftSkill):
     def initialize(self):
         LOG.debug("initialising")
 
-        pixel_ring.set_brightness(10)
+        #pixel_ring.set_brightness(10)
 
         self.add_event('recognizer_loop:record_begin',
                        self.handle_listener_wakeup)
