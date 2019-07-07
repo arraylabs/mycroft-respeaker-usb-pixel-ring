@@ -39,7 +39,6 @@ class PixelRingSkill(MycroftSkill):
 
     def handle_listener_wakeup(self, message):
         #LOG.debug("listen")
-        pixel_ring.set_vad_led()
         pixel_ring.listen()
         
 
@@ -54,7 +53,6 @@ class PixelRingSkill(MycroftSkill):
     def handle_listener_off(self, message):
         #LOG.debug("off")
         pixel_ring.off()
-        pixel_ring.set_vad_led()
     
     @intent_handler(IntentBuilder("").require("EnablePixelRing"))
     def handle_enable_pixel_ring_intent(self, message):
