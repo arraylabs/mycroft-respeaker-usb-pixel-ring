@@ -17,17 +17,46 @@ class PixelRingSkill(MycroftSkill):
     def __init__(self):
         super(PixelRingSkill, self).__init__(name="PixelRingSkill")
 
-    # The "handle_xxxx_intent" function is triggered by Mycroft when the
-    # skill's intent is matched.  The intent is defined by the IntentBuilder()
-    # pieces, and is triggered when the user's utterance matches the pattern
-    # defined by the keywords.  In this case, the match occurs when one word
-    # is found from each of the files:
-    #    vocab/en-us/Hello.voc
-    #    vocab/en-us/World.voc
-    # In this example that means it would match on utterances like:
-    #   'Hello world'
-    #   'Howdy you great big world'
-    #   'Greetings planet earth'
+    def initialize(self):
+        LOG.debug("initialising")
+
+        pixel_ring.set_brightness(10)
+        pixel_ring.wakeup()
+
+        self.add_event('recognizer_loop:record_begin',
+                       self.handle_listener_wakeup)
+        self.add_event('recognizer_loop:record_end', self.handle_listener_off)
+        self.add_event('recognizer_loop:audio_output_start',
+                       self.handle_listener_speak)
+        self.add_event('recognizer_loop:audio_output_end',
+                       self.handle_listener_off)
+        self.add_event('mycroft.skill.handler.start',
+                       self.handle_listener_think)
+        self.add_event('mycroft.skill.handler.complete',
+                       self.handle_listener_off)
+        pixel_ring.off()
+
+    def shutdown(self):
+        LOG.debug("shutdown")
+        pixel_ring.off()
+        self.en.write(1)
+
+    def handle_listener_wakeup(self, message):
+        LOG.debug("wakeup")
+        pixel_ring.wakeup()
+
+    def handle_listener_think(self, message):
+        LOG.debug("think")
+        pixel_ring.think()
+
+    def handle_listener_speak(self, message):
+        LOG.debug("speak")
+        pixel_ring.speak()
+
+    def handle_listener_off(self, message):
+        LOG.debug("off")
+        pixel_ring.off()
+    
     @intent_handler(IntentBuilder("").require("EnablePixelRing"))
     def handle_enable_pixel_ring_intent(self, message):
         # In this case, respond by simply speaking a canned response.
