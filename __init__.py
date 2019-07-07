@@ -5,6 +5,7 @@ import time
 from pixel_ring import pixel_ring
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill, intent_handler
+from mycroft.messagebus.message import Message
 from mycroft.util.log import LOG
 
 # Each skill is contained within its own class, which inherits base methods
