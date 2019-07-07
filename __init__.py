@@ -14,8 +14,8 @@ class PixelRingSkill(MycroftSkill):
 
     def initialize(self):
         pixel_ring.set_brightness(10)
-        pixel_ring.off()
-        pixel_ring.set_vad_led(0)
+        pixel_ring.trace()
+        pixel_ring.set_vad_led(2)
 
     def shutdown(self):
         pixel_ring.off()
