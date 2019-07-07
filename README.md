@@ -1,19 +1,14 @@
-To submit your skill, replace this file with text from 
-https://rawgit.com/MycroftAI/mycroft-skills/master/meta_editor.html
+# <img src='https://camo.githubusercontent.com/16b0193e895780987f64fdbef7551c4adbd4033f/68747470733a2f2f7261772e6769746861636b2e636f6d2f466f7274417765736f6d652f466f6e742d417765736f6d652f6d61737465722f737667732f736f6c69642f636f672e737667' card_color='#22a7f0' width='50' height='50' style='vertical-align:bottom'/> ReSpeaker Mic Array v2 (usb) Mycroft A.I. Skill
+Use the Respeaker Mic Array v2 (usb) with Mycroft A.I.
+
+## Description
+This skills supports the led pixel ring of seeedstudio Respeaker Mic Array v2 (usb).
+
+## Examples
+ - "Enable pixel ring"
+ - "Disable pixel ring"
 
 
-## YOUR SKILL NAME
-One line description of the skill
-
-## Description 
-A more verbose description, including any extra instructions or
-information that didn't fit in the one line.
-
-## Examples 
-* "Hello world"
-* "Greetings planet earth"
-* "Count up"
-* "Count down"
-
-## Credits 
-Your name
+## Credits
+Dominik (@domcross)<br>
+J1nx (@j1nx)
